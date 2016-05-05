@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<rdf:RDF 
+    xmlns:ore="http://www.openarchives.org/ore/terms/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:cdr="http://cdr.unc.edu/definitions/model#">
+    
+  <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#FileObject">
+    <rdfs:label xml:lang="en">FileObject</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      An intellectual entity representing a single work or digital object.   Must contain exactly one data file binary, and may contain descriptive and administrative metadata.
+    </rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdfs:Class>
+  
+  <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#AggregateWork">
+    <rdfs:label xml:lang="en">AggregateWork</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      An intellectual entity representing a single work or digital object.  It may contain any number of objects which compose the work, which must be either cdr:Simple or cdr:Folder objects.   It maybe have one object designated as the primary work representing this aggregate.  It may contain descriptive and administrative metadata for the entire work.
+    </rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdfs:Class>
+  
+  <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#Folder">
+    <rdfs:label xml:lang="en">Folder</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      A grouping of intellectual entities for organizational purposes.  May contain descriptive and administrative metadata.  May contain any number of children objects, which must be of the types cdr:Simple, cdr:AggregateWork or cdr:Folder.
+    </rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdfs:Class>
+  
+  <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#Collection">
+    <rdfs:label xml:lang="en">Collection</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      A top level grouping of intellectual entities devoted to a single theme, similar to the archival definition of a collection.  Descriptive or administrative metadata may be assigned.  May contain any number of children objects of the types cdr:Simple, cdr:AggregateWork or cdr:Folder.
+    </rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdfs:Class>
+  
+  <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#AdminUnit">
+    <rdfs:label xml:lang="en">AdminUnit</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      A grouping of collections belonging to a single administrative organization, for the purposes of assigning high level ownership of materials and staff permissions.  May contain any number of cdr:Collection objects.
+    </rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdfs:Class>
+  
+  <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#DepositRecord">
+    <rdfs:label xml:lang="en">DepositRecord</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      An object representing a single deposit.  Encodes information about the deposit, including SIPs, manifests and submission information.
+    </rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdfs:Class>
+  
+  <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#Vocabulary">
+    <rdfs:label xml:lang="en">Vocabulary</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      An object containing a set of vocabulary terms, as well as information about how the vocabulary should be applied.
+    </rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdfs:Class>
+  
+  <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#SourceMetadata">
+    <rdfs:label xml:lang="en">SourceMetadata</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      A binary object which contains the original metadata provided with an object during deposit.
+    </rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdfs:Class>
+  
+  <!-- Properties -->
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#originalDeposit">
+    <rdfs:label xml:lang="en">originalDeposit</rdfs:label>
+    <rdfs:comment xml:lang="en">Link from an object to the DepositRecord representing the deposit it was ingested as a part of.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <rdfs:range rdf:resource="http://cdr.unc.edu/definitions/model#DepositRecord"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#primaryObject">
+    <rdfs:label xml:lang="en">primaryObject</rdfs:label>
+    <rdfs:comment xml:lang="en">Relation from an AggregateWork to a child which will be treated as the primary work for this object.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#AggregateWork"/>
+    <rdfs:range>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#Folder"/>
+          <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#FileObject"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:range>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#invalidTerm">
+    <rdfs:label xml:lang="en">invalidTerm</rdfs:label>
+    <rdfs:comment xml:lang="en">An invalid vocabulary term in this descriptive record.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#AggregateWork"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <!-- Collection Properties -->
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#collectionDefaultView">
+    <rdfs:label xml:lang="en">collectionDefaultView</rdfs:label>
+    <rdfs:comment xml:lang="en">Name of the view to show by default on a collection record page.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#Collection"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#collectionShowView">
+    <rdfs:label xml:lang="en">collectionShowView</rdfs:label>
+    <rdfs:comment xml:lang="en">Name of a view to show on this collections record page.  Repeatable.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#Collection"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#indexValidTerms">
+    <rdfs:label xml:lang="en">indexValidTerms</rdfs:label>
+    <rdfs:comment xml:lang="en">Reference to a vocabulary object.  For objects in this collection, if the given vocabulary applies to a descriptive field it will only index its value if it is found within the vocabulary.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#Collection"/>
+    <rdfs:range rdf:resource="http://cdr.unc.edu/definitions/model#Vocabulary"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#warnInvalidTerms">
+    <rdfs:label xml:lang="en">warnInvalidTerms</rdfs:label>
+    <rdfs:comment xml:lang="en">Reference to a vocabulary object.  For objects in this collection, display warnings in the admin interface if there are invalid vocabulary terms.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#Collection"/>
+    <rdfs:range rdf:resource="http://cdr.unc.edu/definitions/model#Vocabulary"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#replaceInvalidTerms">
+    <rdfs:label xml:lang="en">replaceInvalidTerms</rdfs:label>
+    <rdfs:comment xml:lang="en">Reference to a vocabulary object.  For objects being deposited into this collection, attempt to remap invalid terms to valid terms when possible.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#Collection"/>
+    <rdfs:range rdf:resource="http://cdr.unc.edu/definitions/model#Vocabulary"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <!-- Deposit record properties -->
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#depositedOnBehalfOf">
+    <rdfs:label xml:lang="en">depositedOnBehalfOf</rdfs:label>
+    <rdfs:comment xml:lang="en">User who this deposit was submitted on behalf of.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#DepositRecord"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#depositMethod">
+    <rdfs:label xml:lang="en">depositMethod</rdfs:label>
+    <rdfs:comment xml:lang="en">Method by which this deposit was submitted, such as "sword" or "CDR web form".</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#DepositRecord"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#depositPackageType">
+    <rdfs:label xml:lang="en">depositPackageType</rdfs:label>
+    <rdfs:comment xml:lang="en">URI representing the type of packaging used for the original deposit represented by this record, such as CDR METS or BagIt.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#DepositRecord"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#depositPackageSubType">
+    <rdfs:label xml:lang="en">depositPackageSubType</rdfs:label>
+    <rdfs:comment xml:lang="en">Subclassification of the packaging type for this deposit, such as a METS profile.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#DepositRecord"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <!-- Vocabulary Object properties -->
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#vocabularyType">
+    <rdfs:label xml:lang="en">vocabularyType</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates the encoding of terms within this vocabulary.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#Vocabulary"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#vocabularyUri">
+    <rdfs:label xml:lang="en">vocabularyUri</rdfs:label>
+    <rdfs:comment xml:lang="en">URI identifying this vocabulary.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#Vocabulary"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#vocabularySelector">
+    <rdfs:label xml:lang="en">vocabularySelector</rdfs:label>
+    <rdfs:comment xml:lang="en">Selector for identifying fields within descriptive metadata records which this vocabulary applies to.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#Vocabulary"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+  <!-- Other object type properties -->
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#hasSourceMetadataProfile">
+    <rdfs:label xml:lang="en">hasSourceMetadataProfile</rdfs:label>
+    <rdfs:comment xml:lang="en">Identifier indicating the profile of the metadata provided with this object at deposit time.  Used to identify what transformation was used to generate descriptive metadata from the original metadata.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#SourceMetadata"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
+  </rdf:Property>
+  
+</rdf:RDF>

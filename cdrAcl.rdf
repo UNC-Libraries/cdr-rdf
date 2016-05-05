@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<rdf:RDF 
+    xmlns:ore="http://www.openarchives.org/ore/terms/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:cdr="http://cdr.unc.edu/definitions/model#"
+    xmlns:cdracl="http://cdr.unc.edu/definitions/acl#">
+  
+    <rdf:Property rdf:about="http://cdr.unc.edu/definitions/acl#embargoUntil">
+      <rdfs:label xml:lang="en">embargoUntil</rdfs:label>
+      <rdfs:comment xml:lang="en">A restriction on patron access which expires after date given.  When in effect, the embargo reduces patron access to only being able to view metadata for the object and all objects contained within it.  Applies to cdr:FileObject, cdr:AggregateWork, cdr:Folder and cdr:Collection.</rdfs:comment>
+      <rdfs:domain>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#Collection"/>
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#Folder"/>
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#AggregateWork"/>
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#FileObject"/>
+          </owl:unionOf>
+        </owl:Class>
+      </rdfs:domain>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+      <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/acl#"/>
+    </rdf:Property>
+    
+    <rdf:Property rdf:about="http://cdr.unc.edu/definitions/acl#markedForDeletion">
+      <rdfs:label xml:lang="en">markedForDeletion</rdfs:label>
+      <rdfs:comment xml:lang="en">Indicates that the object has been selected for deletion from the repository, and removes patron access.  Applies to cdr:FileObject, cdr:AggregateWork, and cdr:Folder objects.</rdfs:comment>
+      <rdfs:domain>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#Folder"/>
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#AggregateWork"/>
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#FileObject"/>
+          </owl:unionOf>
+        </owl:Class>
+      </rdfs:domain>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+      <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/acl#"/>
+    </rdf:Property>
+    
+    <rdf:Property rdf:about="http://cdr.unc.edu/definitions/acl#owner">
+      <rdfs:label xml:lang="en">owner</rdfs:label>
+      <rdfs:comment xml:lang="en">Indicates the user who has ownership of this object, and would be able to grant temporary access permissions to it.  Applies to cdr:FileObject, cdr:Aggregate and cdr:Folder objects.</rdfs:comment>
+      <rdfs:domain>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#Folder"/>
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#AggregateWork"/>
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#FileObject"/>
+          </owl:unionOf>
+        </owl:Class>
+      </rdfs:domain>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/acl#"/>
+    </rdf:Property>
+    
+    <rdf:Property rdf:about="http://cdr.unc.edu/definitions/acl#canDiscover">
+      <rdfs:label xml:lang="en">canDiscover</rdfs:label>
+      <rdfs:comment xml:lang="en">Grants the specified group or user permission to view metadata records for this object and all of its children.  Applies to cdr:Collection objects.  Repeatable.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#Collection"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/acl#"/>
+    </rdf:Property>
+    
+    <rdf:Property rdf:about="http://cdr.unc.edu/definitions/acl#canAccess">
+      <rdfs:label xml:lang="en">canAccess</rdfs:label>
+      <rdfs:comment xml:lang="en">Grants the specified group or user permission to download binaries from children of this object.  Also has all the rights granted by the canDiscover role.  Applies to cdr:Collection objects.  Repeatable.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#Collection"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/acl#"/>
+    </rdf:Property>
+    
+    <rdf:Property rdf:about="http://cdr.unc.edu/definitions/acl#canDescribe">
+      <rdfs:label xml:lang="en">canDescribe</rdfs:label>
+      <rdfs:comment xml:lang="en">Grants the specified group or user permission to add or edit descriptive records for this object and all of its children.  Also has all of the rights granted by the canAccess role.  Applies to cdr:Collection and cdr:AdminUnit objects.  Repeatable.</rdfs:comment>
+      <rdfs:domain>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#Collection"/>
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#AdminUnit"/>
+          </owl:unionOf>
+        </owl:Class>
+      </rdfs:domain>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/acl#"/>
+    </rdf:Property>
+    
+    <rdf:Property rdf:about="http://cdr.unc.edu/definitions/acl#canIngest">
+      <rdfs:label xml:lang="en">canIngest</rdfs:label>
+      <rdfs:comment xml:lang="en">Grants the specified group or user permission ingest new objects into this object and any children containers.  Also has all of the rights granted by the canDescribe role.  Applies to cdr:Collection and cdr:AdminUnit objects.  Repeatable.</rdfs:comment>
+      <rdfs:domain>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#Collection"/>
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#AdminUnit"/>
+          </owl:unionOf>
+        </owl:Class>
+      </rdfs:domain>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/acl#"/>
+    </rdf:Property>
+    
+    <rdf:Property rdf:about="http://cdr.unc.edu/definitions/acl#canManage">
+      <rdfs:label xml:lang="en">canManage</rdfs:label>
+      <rdfs:comment xml:lang="en">Grants the specified group or user permission to move objects, change access to objects, or mark objects for deletion all children objects into this object and any children containers.  Also has all of the rights granted by the canIngest role.  Applies to cdr:Collection and cdr:AdminUnit objects.  Repeatable.</rdfs:comment>
+      <rdfs:domain>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#Collection"/>
+            <rdfs:Class rdf:about="http://cdr.unc.edu/definitions/model#AdminUnit"/>
+          </owl:unionOf>
+        </owl:Class>
+      </rdfs:domain>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/acl#"/>
+    </rdf:Property>
+    
+    <rdf:Property rdf:about="http://cdr.unc.edu/definitions/acl#unitOwner">
+      <rdfs:label xml:lang="en">unitOwner</rdfs:label>
+      <rdfs:comment xml:lang="en">User granted ownership of an administrative unit.  Has all access and administrative permissions, as well as permission to permanently destroy objects, create collections, and assign staff permissions.  Applies to cdr:AdminUnit objects.  Repeatable.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#AdminUnit"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/acl#"/>
+    </rdf:Property>
+    
+    <rdf:Property rdf:about="http://cdr.unc.edu/definitions/acl#patronsMetadataOnly">
+      <rdfs:label xml:lang="en">patronsMetadataOnly</rdfs:label>
+      <rdfs:comment xml:lang="en">If true, restricts users with patron access to only be able to view metadata records for this object and its children.  Applies to cdr:Collection objects.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#Collection"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+      <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/acl#"/>
+    </rdf:Property>
+    
+    <rdf:Property rdf:about="http://cdr.unc.edu/definitions/acl#patronAccess">
+      <rdfs:label xml:lang="en">patronAccess</rdfs:label>
+      <rdfs:comment xml:lang="en">Grants the specified category of users patron access to this object and its children, unless further restricted by the child.  Cannot exceed the level of patron access granted on a parent object.  Valid values are: "everyone", "authenticated", "none", "parent".   Applies to cdr:FileObject, cdr:AggregateWork, cdr:Folder, and cdr:Collection objects.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://cdr.unc.edu/definitions/model#AdminUnit"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+      <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/acl#"/>
+    </rdf:Property>
+  
+</rdf:RDF>
