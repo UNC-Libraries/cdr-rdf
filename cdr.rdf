@@ -79,9 +79,9 @@
   
   <!-- Properties -->
   
-  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#originalDeposit">
-    <rdfs:label xml:lang="en">originalDeposit</rdfs:label>
-    <rdfs:comment xml:lang="en">Link from an object to the DepositRecord representing the deposit it was ingested as a part of.</rdfs:comment>
+  <rdf:Property rdf:about="http://cdr.unc.edu/definitions/model#hasIngestedObject">
+    <rdfs:label xml:lang="en">hasIngestedObject</rdfs:label>
+    <rdfs:comment xml:lang="en">Link from the DepositRecord to an object ingested with the given deposit.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
     <rdfs:range rdf:resource="http://cdr.unc.edu/definitions/model#DepositRecord"/>
     <rdfs:isDefinedBy rdf:resource="http://cdr.unc.edu/definitions/model#"/>
